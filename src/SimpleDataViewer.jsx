@@ -5,7 +5,10 @@ import "./styles.css";
 const SimpleJsonViewer = () => {
   const [data, setData] = useState([]);
   const [selectedVoter, setSelectedVoter] = useState(null);
+  const [selectedRowIndex, setSelectedRowIndex] = useState(null);
   const [showDetailView, setShowDetailView] = useState(false);
+  const [showRoofMembers, setShowRoofMembers] = useState(false);
+  const [roofMembers, setRoofMembers] = useState([]);
   const [filters, setFilters] = useState({
     constituency: "",
     villages: [],
@@ -86,10 +89,10 @@ const SimpleJsonViewer = () => {
         (filters.booths.length === 0 || filters.booths.includes(item["Ward"])) &&
         // Voter ID filter (text search)
         (filters.voterId === "" || String(item["ID Code"]).toLowerCase().includes(filters.voterId.toLowerCase())) &&
-        // House No filter (text search)
-        (filters.houseNo === "" || String(item["House No"]).toLowerCase().includes(filters.houseNo.toLowerCase())) &&
-        // Serial No filter (text search)
-        (filters.serialNo === "" || String(item["S.No"]).toLowerCase().includes(filters.serialNo.toLowerCase())) &&
+        // House No filter (starts with search)
+        (filters.houseNo === "" || String(item["House No"]).toLowerCase().startsWith(filters.houseNo.toLowerCase())) &&
+        // Serial No filter (exact match)
+        (filters.serialNo === "" || String(item["S.No"]) === filters.serialNo) &&
         // Name filter (text search)
         (filters.name === "" || String(item["Name"]).toLowerCase().includes(filters.name.toLowerCase())) &&
         // Relation filter
@@ -141,16 +144,40 @@ const SimpleJsonViewer = () => {
       oneRoof: "",
       oneRoofRunning: "",
     });
+    // Also clear selection when clearing filters
+    setSelectedRowIndex(null);
+    setSelectedVoter(null);
   };
 
-  const handleRowClick = (voter) => {
+  const handleRowClick = (voter, index) => {
     setSelectedVoter(voter);
+    setSelectedRowIndex(index);
     setShowDetailView(true);
   };
 
   const closeDetailView = () => {
     setShowDetailView(false);
     setSelectedVoter(null);
+    // Keep the row selected even after closing modal
+    // setSelectedRowIndex(null); // Uncomment this if you want to deselect on close
+  };
+
+  const handleRoofClick = (roofNumber) => {
+    const members = data
+      .filter(voter => voter["One Roof"] === roofNumber)
+      .sort((a, b) => Number(a["One Roof Running Number"]) - Number(b["One Roof Running Number"]));
+    setRoofMembers(members);
+    setShowRoofMembers(true);
+  };
+
+  const closeRoofView = () => {
+    setShowRoofMembers(false);
+    setRoofMembers([]);
+  };
+
+  const handleElectoralIdClick = (voterId) => {
+    // Open electoral details or external link
+    window.open(`https://electoralsearch.in/search?id=${voterId}`, '_blank');
   };
 
   return (
@@ -377,11 +404,11 @@ const SimpleJsonViewer = () => {
         <table className="electoral-table">
           <thead>
             <tr>
-              <th>Electoral ID number</th>
-              <th>Serial Number</th>
+              <th>S.No</th>
+              <th>Electoral ID</th>
               <th>Name</th>
               <th>Roof Number</th>
-              <th>Roof Running Number</th>
+              <th>Roof Running</th>
               <th>Age</th>
               <th>Gender</th>
               <th>Address</th>
@@ -389,16 +416,25 @@ const SimpleJsonViewer = () => {
           </thead>
           <tbody>
             {filteredData.map((item, idx) => (
-              <tr key={idx} onClick={() => handleRowClick(item)} className="clickable-row">
-                <td className="electoral-id">{item["ID Code"]}</td>
+              <tr 
+                key={idx} 
+                onClick={() => handleRowClick(item, idx)} 
+                className={`clickable-row `}
+              >
                 <td>{item["S.No"]}</td>
+                <td className="electoral-id" onClick={(e) => {e.stopPropagation(); handleElectoralIdClick(item["ID Code"]);}}>
+                  {item["ID Code"]}
+                </td>
                 <td className="name-cell">{item["Name"]}</td>
-                <td className="roof-number">{item["One Roof"]}</td>
+                <td className="roof-number" onClick={(e) => {e.stopPropagation(); handleRoofClick(item["One Roof"]);}}>
+                  {item["One Roof"]}
+                </td>
                 <td className="roof-running">{item["One Roof Running Number"]}</td>
                 <td>{item["Age"]}</td>
                 <td>{item["Gender"] === "ஆண்" ? "M" : "F"}</td>
                 <td className="address-cell">
-                  {item["House No"]}, {item["Village"]}
+                  {/* Display order: constituency → street → village → booth → ward → door no */}
+                  {item["Constituency"]} → {item["Division"]} → {item["Village"]} → {item["Ward"]} → {item["House No"]}
                 </td>
               </tr>
             ))}
@@ -413,6 +449,26 @@ const SimpleJsonViewer = () => {
             Columns: {8}
           </span>
         )}
+        {selectedRowIndex !== null && selectedVoter && (
+          <span style={{marginLeft: '20px', fontSize: '16px', color: '#000', fontWeight: 'bold'}}>
+            Selected: {selectedVoter["Name"]} (ID: {selectedVoter["ID Code"]})
+            <button 
+              onClick={() => {setSelectedRowIndex(null); setSelectedVoter(null);}} 
+              style={{
+                marginLeft: '10px', 
+                padding: '4px 8px', 
+                fontSize: '12px', 
+                backgroundColor: '#dc3545', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}
+            >
+              Clear Selection
+            </button>
+          </span>
+        )}
       </p>
 
       {/* Voter Detail Modal */}
@@ -420,62 +476,137 @@ const SimpleJsonViewer = () => {
         <div className="modal-overlay" onClick={closeDetailView}>
           <div className="voter-detail-modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>📋 Voter Details</h2>
-              <button className="close-btn" onClick={closeDetailView}>×</button>
+              <h2>Voter Details</h2>
+              <button className="modal-close-btn" onClick={closeDetailView}>×</button>
             </div>
-            <div className="voter-detail-content">
-              <div className="detail-section">
-                <div className="detail-row">
-                  <label>Electoral Number</label>
-                  <span>{selectedVoter["ID Code"]}</span>
-                </div>
-                <div className="detail-row">
-                  <label>Name</label>
-                  <span>{selectedVoter["Name"]}</span>
-                </div>
-                <div className="detail-row">
-                  <label>Father Name / Husband Name</label>
-                  <span>{selectedVoter["Relative Name"]}</span>
-                </div>
-                <div className="detail-row">
-                  <label>Gender</label>
-                  <span>{selectedVoter["Gender"] === "ஆண்" ? "Male" : "Female"}</span>
-                </div>
-                <div className="detail-row">
-                  <label>Age</label>
-                  <span>{selectedVoter["Age"]}</span>
-                </div>
-                <div className="detail-row">
-                  <label>Door No.</label>
-                  <span>{selectedVoter["House No"]}</span>
-                </div>
+            <div className="voter-detail-grid">
+              <div className="grid-row">
+                <div className="grid-label">Serial Number</div>
+                <div className="grid-value">{selectedVoter["S.No"]}</div>
+                <div className="grid-spacer"></div>
+                <div className="grid-label">Constituency</div>
+                <div className="grid-value">{selectedVoter["Constituency"]}</div>
               </div>
               
-              <div className="detail-section">
-                <div className="detail-row">
-                  <label>Address</label>
-                  <span>{selectedVoter["Village"]}, {selectedVoter["Division"]}</span>
+              <div className="grid-row">
+                <div className="grid-label">Electoral Number</div>
+                <div className="grid-value clickable-link" onClick={() => handleElectoralIdClick(selectedVoter["ID Code"])}>
+                  {selectedVoter["ID Code"]}
                 </div>
-                <div className="detail-row">
-                  <label>Taluk</label>
-                  <span>{selectedVoter["Division"]}</span>
+                <div className="grid-spacer"></div>
+                <div className="grid-label">Village</div>
+                <div className="grid-value">{selectedVoter["Village"]}</div>
+              </div>
+              
+              <div className="grid-row">
+                <div className="grid-label">Name</div>
+                <div className="grid-value">{selectedVoter["Name"]}</div>
+                <div className="grid-spacer"></div>
+                <div className="grid-label">Booth</div>
+                <div className="grid-value">{selectedVoter["Part"]}</div>
+              </div>
+              
+              <div className="grid-row">
+                <div className="grid-label">Father Name / Husband Name</div>
+                <div className="grid-value">{selectedVoter["Relative Name"]}</div>
+                <div className="grid-spacer"></div>
+                <div className="grid-label">Ward</div>
+                <div className="grid-value">{selectedVoter["Ward"]}</div>
+              </div>
+              
+              <div className="grid-row">
+                <div className="grid-label">Relation Type</div>
+                <div className="grid-value">{selectedVoter["Relation Type"]}</div>
+                <div className="grid-spacer"></div>
+                <div className="grid-label">Nagar/Area</div>
+                <div className="grid-value">{selectedVoter["Village"]}</div>
+              </div>
+              
+              <div className="grid-row">
+                <div className="grid-label">Gender</div>
+                <div className="grid-value">{selectedVoter["Gender"] === "ஆண்" ? "Male (ஆண்)" : "Female (பெண்)"}</div>
+                <div className="grid-spacer"></div>
+                <div className="grid-label">Street</div>
+                <div className="grid-value">{selectedVoter["Division"]}</div>
+              </div>
+              
+              <div className="grid-row">
+                <div className="grid-label">Age</div>
+                <div className="grid-value">{selectedVoter["Age"]} years</div>
+                <div className="grid-spacer"></div>
+                <div className="grid-label">Door Number</div>
+                <div className="grid-value">{selectedVoter["House No"]}</div>
+              </div>
+              
+              <div className="grid-row">
+                <div className="grid-label">Position</div>
+                <div className="grid-value">{selectedVoter["Position"]}</div>
+                <div className="grid-spacer"></div>
+                <div className="grid-label">Page</div>
+                <div className="grid-value">{selectedVoter["Page"]}</div>
+              </div>
+              
+              <div className="grid-row">
+                <div className="grid-label">One Roof</div>
+                <div className="grid-value">{selectedVoter["One Roof"]} {selectedVoter["One Roof"] > 1 ? "(Batched)" : "(Single)"}</div>
+                <div className="grid-spacer"></div>
+                <div className="grid-label">Photo Status</div>
+                <div className="grid-value">{selectedVoter["Photo"]}</div>
+              </div>
+              
+              <div className="grid-row">
+                <div className="grid-label">One Roof Running Number</div>
+                <div className="grid-value">{selectedVoter["One Roof Running Number"]}</div>
+                <div className="grid-spacer"></div>
+                <div className="grid-label"></div>
+                <div className="grid-value"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showRoofMembers && roofMembers && roofMembers.length > 0 && (
+        <div className="modal-overlay" onClick={closeRoofModal}>
+          <div className="voter-detail-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>👪 Family Members ({roofMembers.length} members under same roof)</h2>
+              <button className="close-btn" onClick={closeRoofModal}>×</button>
+            </div>
+            <div className="roof-members-content">
+              <div className="roof-members-table">
+                <div className="roof-table-header">
+                  <div>Serial No</div>
+                  <div>Electoral ID</div>
+                  <div>Name</div>
+                  <div>Relation</div>
+                  <div>Age</div>
+                  <div>Gender</div>
+                  <div>Action</div>
                 </div>
-                <div className="detail-row">
-                  <label>Ward</label>
-                  <span>{selectedVoter["Ward"]?.replace("வார்டு-", "")}</span>
-                </div>
-                <div className="detail-row">
-                  <label>Village</label>
-                  <span>{selectedVoter["Village"]}</span>
-                </div>
-                <div className="detail-row">
-                  <label>One Roof</label>
-                  <span>{selectedVoter["One Roof"] > 1 ? "Batched" : "Single"}</span>
-                </div>
-                <div className="detail-row">
-                  <label>Position</label>
-                  <span>{selectedVoter["Position"]}</span>
-                </div>
+                {roofMembers.map((member, index) => (
+                  <div key={index} className="roof-table-row">
+                    <div>{member["S.No"]}</div>
+                    <div className="clickable-link" onClick={() => handleElectoralIdClick(member["ID Code"])}>
+                      {member["ID Code"]}
+                    </div>
+                    <div>{member["Name"]}</div>
+                    <div>{member["Relation Type"]}</div>
+                    <div>{member["Age"]}</div>
+                    <div>{member["Gender"] === "ஆண்" ? "Male" : "Female"}</div>
+                    <div>
+                      <button 
+                        className="view-details-btn" 
+                        onClick={() => {
+                          setSelectedVoter(member);
+                          setShowRoofMembers(false);
+                        }}
+                      >
+                        View
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
