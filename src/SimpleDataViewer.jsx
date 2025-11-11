@@ -182,8 +182,6 @@ const SimpleJsonViewer = () => {
 
   return (
     <div className="viewer-container">
-      <h1 className="viewer-title">📘 Electoral Data Viewer</h1>
-
       {/* Filters */}
       <div className="filters-container">
         {/* Row 1: Location Filters */}
@@ -426,7 +424,7 @@ const SimpleJsonViewer = () => {
                   {item["ID Code"]}
                 </td>
                 <td className="name-cell">{item["Name"]}</td>
-                <td className="roof-number" onClick={(e) => {e.stopPropagation(); handleRoofClick(item["One Roof"]);}}>
+                <td className="roof-number" >
                   {item["One Roof"]}
                 </td>
                 <td className="roof-running">{item["One Roof Running Number"]}</td>
@@ -476,92 +474,83 @@ const SimpleJsonViewer = () => {
         <div className="modal-overlay" onClick={closeDetailView}>
           <div className="voter-detail-modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>Voter Details</h2>
+              <h2>Voters Full Details</h2>
               <button className="modal-close-btn" onClick={closeDetailView}>×</button>
             </div>
             <div className="voter-detail-grid">
-              <div className="grid-row">
-                <div className="grid-label">Serial Number</div>
-                <div className="grid-value">{selectedVoter["S.No"]}</div>
-                <div className="grid-spacer"></div>
-                <div className="grid-label">Constituency</div>
-                <div className="grid-value">{selectedVoter["Constituency"]}</div>
-              </div>
-              
-              <div className="grid-row">
-                <div className="grid-label">Electoral Number</div>
-                <div className="grid-value clickable-link" onClick={() => handleElectoralIdClick(selectedVoter["ID Code"])}>
-                  {selectedVoter["ID Code"]}
-                </div>
-                <div className="grid-spacer"></div>
-                <div className="grid-label">Village</div>
-                <div className="grid-value">{selectedVoter["Village"]}</div>
-              </div>
-              
-              <div className="grid-row">
-                <div className="grid-label">Name</div>
-                <div className="grid-value">{selectedVoter["Name"]}</div>
-                <div className="grid-spacer"></div>
-                <div className="grid-label">Booth</div>
-                <div className="grid-value">{selectedVoter["Part"]}</div>
-              </div>
-              
-              <div className="grid-row">
-                <div className="grid-label">Father Name / Husband Name</div>
-                <div className="grid-value">{selectedVoter["Relative Name"]}</div>
-                <div className="grid-spacer"></div>
-                <div className="grid-label">Ward</div>
-                <div className="grid-value">{selectedVoter["Ward"]}</div>
-              </div>
-              
-              <div className="grid-row">
-                <div className="grid-label">Relation Type</div>
-                <div className="grid-value">{selectedVoter["Relation Type"]}</div>
-                <div className="grid-spacer"></div>
-                <div className="grid-label">Nagar/Area</div>
-                <div className="grid-value">{selectedVoter["Village"]}</div>
-              </div>
-              
-              <div className="grid-row">
-                <div className="grid-label">Gender</div>
-                <div className="grid-value">{selectedVoter["Gender"] === "ஆண்" ? "Male (ஆண்)" : "Female (பெண்)"}</div>
-                <div className="grid-spacer"></div>
-                <div className="grid-label">Street</div>
-                <div className="grid-value">{selectedVoter["Division"]}</div>
-              </div>
-              
-              <div className="grid-row">
-                <div className="grid-label">Age</div>
-                <div className="grid-value">{selectedVoter["Age"]} years</div>
-                <div className="grid-spacer"></div>
-                <div className="grid-label">Door Number</div>
-                <div className="grid-value">{selectedVoter["House No"]}</div>
-              </div>
-              
-              <div className="grid-row">
-                <div className="grid-label">Position</div>
-                <div className="grid-value">{selectedVoter["Position"]}</div>
-                <div className="grid-spacer"></div>
-                <div className="grid-label">Page</div>
-                <div className="grid-value">{selectedVoter["Page"]}</div>
-              </div>
-              
-              <div className="grid-row">
-                <div className="grid-label">One Roof</div>
-                <div className="grid-value">{selectedVoter["One Roof"]} {selectedVoter["One Roof"] > 1 ? "(Batched)" : "(Single)"}</div>
-                <div className="grid-spacer"></div>
-                <div className="grid-label">Photo Status</div>
-                <div className="grid-value">{selectedVoter["Photo"]}</div>
-              </div>
-              
-              <div className="grid-row">
-                <div className="grid-label">One Roof Running Number</div>
-                <div className="grid-value">{selectedVoter["One Roof Running Number"]}</div>
-                <div className="grid-spacer"></div>
-                <div className="grid-label"></div>
-                <div className="grid-value"></div>
-              </div>
-            </div>
+  {/* 1️⃣ Electoral No */}
+  <div className="grid-row">
+    <div className="grid-label">Electoral Number</div>
+    <div
+      className="grid-value"
+    >
+      {selectedVoter["ID Code"]}
+    </div>
+    <div className="grid-spacer"></div>
+
+    {/* 2️⃣ Part */}
+    <div className="grid-label">Booth / Part</div>
+    <div className="grid-value">{selectedVoter["Part"]}</div>
+  </div>
+
+  {/* 3️⃣ Ward */}
+  <div className="grid-row">
+    <div className="grid-label">Ward</div>
+    <div className="grid-value">{selectedVoter["Ward"]}</div>
+    <div className="grid-spacer"></div>
+
+    {/* 4️⃣ Serial No */}
+    <div className="grid-label">Serial Number</div>
+    <div className="grid-value">{selectedVoter["S.No"]}</div>
+  </div>
+
+  {/* 5️⃣ Name */}
+  <div className="grid-row">
+    <div className="grid-label">Name</div>
+    <div className="grid-value">{selectedVoter["Name"]}</div>
+    <div className="grid-spacer"></div>
+
+    {/* 6️⃣ Relation Type */}
+    <div className="grid-label">Relation Type</div>
+    <div className="grid-value">{selectedVoter["Relation Type"]}</div>
+  </div>
+
+  {/* 7️⃣ Relative Name */}
+  <div className="grid-row">
+    <div className="grid-label">Relative Name</div>
+    <div className="grid-value">{selectedVoter["Relative Name"]}</div>
+    <div className="grid-spacer"></div>
+
+    {/* 8️⃣ Gender */}
+    <div className="grid-label">Gender</div>
+    <div className="grid-value">
+      {selectedVoter["Gender"] === "ஆண்" ? "Male (ஆண்)" : "Female (பெண்)"}
+    </div>
+  </div>
+
+  {/* 9️⃣ Age */}
+  <div className="grid-row">
+    <div className="grid-label">Age</div>
+    <div className="grid-value">{selectedVoter["Age"]} years</div>
+    <div className="grid-spacer"></div>
+
+    {/* 🔟 Door No */}
+    <div className="grid-label">Door Number</div>
+    <div className="grid-value">{selectedVoter["House No"]}</div>
+  </div>
+
+  {/* 11️⃣ Address */}
+  <div className="grid-row">
+    <div className="grid-label">Address</div>
+    <div className="grid-value">{selectedVoter["Division"]}</div>
+    <div className="grid-spacer"></div>
+
+    {/* 12️⃣ Village */}
+    <div className="grid-label">Village</div>
+    <div className="grid-value">{selectedVoter["Village"]}</div>
+  </div>
+</div>
+
           </div>
         </div>
       )}
