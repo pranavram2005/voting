@@ -11,14 +11,16 @@ const SimpleJsonViewer = () => {
   const [roofMembers, setRoofMembers] = useState([]);
   const [filters, setFilters] = useState({
     constituency: "",
-    villages: [],
-    streets: [],
-    booths: [],
+    villages: [], // Nagar
+    streets: [],  // Street (Division)
+    booths: [],   // Booth (Part)
+    wards: [],    // Ward
     voterId: "",
     houseNo: "",
     serialNo: "",
     name: "",
     relation: "",
+    relativeName: "",
     ageFrom: "",
     ageTo: "",
     gender: "",
@@ -85,29 +87,33 @@ const SimpleJsonViewer = () => {
         (filters.villages.length === 0 || filters.villages.includes(item["Village"])) &&
         // Street filter (multiple selection) - using Division as Street
         (filters.streets.length === 0 || filters.streets.includes(item["Division"])) &&
-        // Booth filter (multiple selection) - using Ward as Booth
-        (filters.booths.length === 0 || filters.booths.includes(item["Ward"])) &&
-        // Voter ID filter (text search)
-        (filters.voterId === "" || String(item["ID Code"]).toLowerCase().includes(filters.voterId.toLowerCase())) &&
-        // House No filter (starts with search)
-        (filters.houseNo === "" || String(item["House No"]).toLowerCase().startsWith(filters.houseNo.toLowerCase())) &&
+        // Booth filter (multiple selection) using Part
+        (filters.booths.length === 0 || filters.booths.includes(item["Part"])) &&
+        // Ward filter (multiple selection)
+        (filters.wards.length === 0 || filters.wards.includes(item["Ward"])) &&
+        // Voter ID filter (exact match)
+        (filters.voterId === "" || String(item["ID Code"]).toLowerCase() === filters.voterId.toLowerCase()) &&
+        // House No filter (exact match)
+        (filters.houseNo === "" || String(item["House No"]).toLowerCase() === filters.houseNo.toLowerCase()) &&
         // Serial No filter (exact match)
         (filters.serialNo === "" || String(item["S.No"]) === filters.serialNo) &&
         // Name filter (text search)
         (filters.name === "" || String(item["Name"]).toLowerCase().includes(filters.name.toLowerCase())) &&
         // Relation filter
         (filters.relation === "" || item["Relation Type"] === filters.relation) &&
+        // Relative Name filter (shown only when relation selected)
+        (filters.relativeName === "" || String(item["Relative Name"]).toLowerCase().includes(filters.relativeName.toLowerCase())) &&
         // Age range filter
         (filters.ageFrom === "" || Number(item["Age"]) >= Number(filters.ageFrom)) &&
         (filters.ageTo === "" || Number(item["Age"]) <= Number(filters.ageTo)) &&
         // Gender filter
         (filters.gender === "" || item["Gender"] === filters.gender) &&
-        // PDF No filter (text search) - using Page as PDF No
-        (filters.pdfNo === "" || String(item["Page"]).toLowerCase().includes(filters.pdfNo.toLowerCase())) &&
-        // One Roof filter (text search)
-        (filters.oneRoof === "" || String(item["One Roof"]).toLowerCase().includes(filters.oneRoof.toLowerCase())) &&
-        // One Roof Running Number filter (text search)
-        (filters.oneRoofRunning === "" || String(item["One Roof Running Number"]).toLowerCase().includes(filters.oneRoofRunning.toLowerCase()))
+        // PDF No filter exact match (Page)
+        (filters.pdfNo === "" || String(item["Page"]).toLowerCase() === filters.pdfNo.toLowerCase()) &&
+        // One Roof filter (exact match)
+        (filters.oneRoof === "" || String(item["One Roof"]) === filters.oneRoof) &&
+        // One Roof Running Number filter (exact match)
+        (filters.oneRoofRunning === "" || String(item["One Roof Running Number"]) === filters.oneRoofRunning)
       );
     });
   }, [data, filters]);
@@ -132,11 +138,13 @@ const SimpleJsonViewer = () => {
       villages: [],
       streets: [],
       booths: [],
+      wards: [],
       voterId: "",
       houseNo: "",
       serialNo: "",
       name: "",
       relation: "",
+      relativeName: "",
       ageFrom: "",
       ageTo: "",
       gender: "",
@@ -184,63 +192,90 @@ const SimpleJsonViewer = () => {
     <div className="viewer-container">
       {/* Filters */}
       <div className="filters-container">
-        {/* Row 1: Location Filters */}
+        {/* Row 1: Reordered Location Filters */}
         <div className="filter-row">
-          <div className="filter-group">
-            <label>1. Constituency:</label>
-            <select name="constituency" value={filters.constituency} onChange={handleFilterChange}>
-              <option value="">Select Constituency</option>
-              {getUniqueValues("Constituency").map((val) => (
-                <option key={val} value={val}>{val}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="filter-group">
-            <label>2. Village [Division] (Multiple):</label>
-            <div className="multi-select-container">
-              {getUniqueValues("Village").map((village) => (
-                <label key={village} className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    checked={filters.villages.includes(village)}
-                    onChange={() => handleMultiSelectChange('villages', village)}
-                  />
-                  {village}
-                </label>
-              ))}
+          {/* Left column: Constituency, Booth, Ward */}
+          <div className="filter-column">
+            {/* 1. Constituency */}
+            <div className="filter-group">
+              <label>1. Constituency:</label>
+              <select name="constituency" value={filters.constituency} onChange={handleFilterChange}>
+                <option value="">Select Constituency</option>
+                {getUniqueValues("Constituency").map(val => <option key={val} value={val}>{val}</option>)}
+              </select>
+            </div>
+            
+            {/* 2. Booth (Part) multi-select */}
+            <div className="filter-group">
+              <label>2. Booth (Part) (Multiple):</label>
+              <div className="multi-select-container">
+                {getUniqueValues("Part").map(part => (
+                  <label key={part} className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      checked={filters.booths.includes(part)}
+                      onChange={() => handleMultiSelectChange('booths', part)}
+                    />
+                    {part}
+                  </label>
+                ))}
+              </div>
+            </div>
+            {/* 3. Ward multi-select */}
+            <div className="filter-group">
+              <label>3. Ward (Multiple):</label>
+              <div className="multi-select-container">
+                {getUniqueValues("Ward").map(ward => (
+                  <label key={ward} className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      checked={filters.wards.includes(ward)}
+                      onChange={() => handleMultiSelectChange('wards', ward)}
+                    />
+                    {ward}
+                  </label>
+                ))}
+              </div>
             </div>
           </div>
 
-          <div className="filter-group">
-            <label>3. Street [Division] (Multiple):</label>
-            <div className="multi-select-container">
-              {getUniqueValues("Division").map((street) => (
-                <label key={street} className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    checked={filters.streets.includes(street)}
-                    onChange={() => handleMultiSelectChange('streets', street)}
-                  />
-                  {street}
-                </label>
-              ))}
+          {/* Right column: Nagar (Village), Street (Division) */}
+          <div className="filter-column">
+             <div className="filter-group">
+             <div className="box"></div>
             </div>
-          </div>
-
-          <div className="filter-group">
-            <label>4. Booth - Pagam [Ward] (Multiple):</label>
-            <div className="multi-select-container">
-              {getUniqueValues("Ward").map((booth) => (
-                <label key={booth} className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    checked={filters.booths.includes(booth)}
-                    onChange={() => handleMultiSelectChange('booths', booth)}
-                  />
-                  {booth}
-                </label>
-              ))}
+            {/* 4. Nagar (Village) multi-select */}
+            <div className="filter-group">
+              <label>4. Nagar (Village) (Multiple):</label>
+              <div className="multi-select-container">
+                {getUniqueValues("Village").map(village => (
+                  <label key={village} className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      checked={filters.villages.includes(village)}
+                      onChange={() => handleMultiSelectChange('villages', village)}
+                    />
+                    {village}
+                  </label>
+                ))}
+              </div>
+            </div>
+            
+            {/* 5. Street (Division) multi-select */}
+            <div className="filter-group">
+              <label>5. Street (Division) (Multiple):</label>
+              <div className="multi-select-container">
+                {getUniqueValues("Division").map(street => (
+                  <label key={street} className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      checked={filters.streets.includes(street)}
+                      onChange={() => handleMultiSelectChange('streets', street)}
+                    />
+                    {street}
+                  </label>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -312,6 +347,18 @@ const SimpleJsonViewer = () => {
               ))}
             </select>
           </div>
+          {filters.relation && (
+            <div className="filter-group">
+              <label>5a. Relative Name:</label>
+              <input
+                type="text"
+                placeholder="Search Relative Name"
+                name="relativeName"
+                value={filters.relativeName}
+                onChange={handleFilterChange}
+              />
+            </div>
+          )}
 
           <div className="filter-group">
             <label>6. Age Range:</label>
@@ -405,11 +452,13 @@ const SimpleJsonViewer = () => {
               <th>S.No</th>
               <th>Electoral ID</th>
               <th>Name</th>
-              <th>Roof Number</th>
-              <th>Roof Running</th>
+              <th>Relation Type</th>
+              <th>Relation Name</th>              
               <th>Age</th>
-              <th>Gender</th>
+              <th>G</th>
               <th>Address</th>
+              <th>RN</th>
+              <th>RR</th>
             </tr>
           </thead>
           <tbody>
@@ -424,16 +473,19 @@ const SimpleJsonViewer = () => {
                   {item["ID Code"]}
                 </td>
                 <td className="name-cell">{item["Name"]}</td>
-                <td className="roof-number" >
-                  {item["One Roof"]}
-                </td>
-                <td className="roof-running">{item["One Roof Running Number"]}</td>
-                <td>{item["Age"]}</td>
+                <td className="name-cell">{item["Relation Type"]}</td>
+                <td className="name-cell">{item["Relative Name"]}</td>
+                  <td>{item["Age"]}</td>
                 <td>{item["Gender"] === "ஆண்" ? "M" : "F"}</td>
                 <td className="address-cell">
                   {/* Display order: constituency → street → village → booth → ward → door no */}
-                  {item["Constituency"]} → {item["Division"]} → {item["Village"]} → {item["Ward"]} → {item["House No"]}
+                  {item["Division"]} → {item["Village"]} → {item["Ward"]} → {item["House No"]}
                 </td>
+                 <td className="roof-number" >
+                  {item["One Roof"]}
+                </td>
+                <td className="roof-running">{item["One Roof Running Number"]}</td>
+             
               </tr>
             ))}
           </tbody>

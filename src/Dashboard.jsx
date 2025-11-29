@@ -73,6 +73,7 @@ const Dashboard = ({ user }) => {
       taluks: taluks.size,
       booths: booths.size,
       streets: streets.size,
+      nagars: streets.size,
       maleVoters: maleCount,
       femaleVoters: femaleCount,
       transgenderVoters: transgenderCount,
@@ -111,6 +112,13 @@ const Dashboard = ({ user }) => {
           variant="compact"
         />
         <StatCard 
+          number={stats.booths} 
+          label="Booths" 
+          color="#d68910" 
+          bgColor="#ffffff"
+          variant="large"
+        />
+        <StatCard 
           number={stats.wards} 
           label="Ward" 
           color="#e74c3c" 
@@ -120,27 +128,13 @@ const Dashboard = ({ user }) => {
         />
         <StatCard 
           number={stats.taluks} 
-          label="Taluk" 
+          label="Nagars" 
           color="#e74c3c" 
           bgColor="#ffffff"
           borderColor="#000"
           variant="compact"
         />
-        <StatCard 
-          number={stats.taluks} 
-          label="Taluk" 
-          color="#e74c3c" 
-          bgColor="#ffffff"
-          borderColor="#000"
-          variant="compact"
-        />
-        <StatCard 
-          number={stats.booths} 
-          label="Booths" 
-          color="#d68910" 
-          bgColor="#ffffff"
-          variant="large"
-        />
+       
         <StatCard 
           number={stats.streets} 
           label="Streets" 
