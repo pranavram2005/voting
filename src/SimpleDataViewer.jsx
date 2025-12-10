@@ -73,8 +73,27 @@ const SimpleJsonViewer = () => {
     return [...result, ...additional];
   }, [data]);
 
+  const normalizeRelationType = (relationType) => {
+    if (!relationType) return "";
+    const normalized = relationType.trim();
+    // Normalize father relations to full version
+    if (normalized === "தந்தையின் பெயர்" || normalized === "தந்தையின்") {
+      return "தந்தையின் பெயர்";
+    }
+    // Normalize husband relations to full version
+    if (normalized === "கணவர் பெயர்" || normalized === "கணவர்") {
+      return "கணவர் பெயர்";
+    }
+    return normalized;
+  };
+
   const getUniqueValues = (key) => {
     const values = [...new Set(data.map((item) => item[key]))];
+    return values.filter((v) => v !== undefined && v !== null && v !== "").sort();
+  };
+
+  const getUniqueRelationTypes = () => {
+    const values = [...new Set(data.map((item) => normalizeRelationType(item["Relation Type"])))];
     return values.filter((v) => v !== undefined && v !== null && v !== "").sort();
   };
 
@@ -91,16 +110,16 @@ const SimpleJsonViewer = () => {
         (filters.booths.length === 0 || filters.booths.includes(item["Part"])) &&
         // Ward filter (multiple selection)
         (filters.wards.length === 0 || filters.wards.includes(item["Ward"])) &&
-        // Voter ID filter (exact match)
-        (filters.voterId === "" || String(item["ID Code"]).toLowerCase() === filters.voterId.toLowerCase()) &&
+        // Voter ID filter (substring match, case-insensitive)
+        (filters.voterId === "" || String(item["ID Code"]).trim().toLowerCase().includes(filters.voterId.trim().toLowerCase())) &&
         // House No filter (exact match)
         (filters.houseNo === "" || String(item["House No"]).toLowerCase() === filters.houseNo.toLowerCase()) &&
         // Serial No filter (exact match)
         (filters.serialNo === "" || String(item["S.No"]) === filters.serialNo) &&
         // Name filter (text search)
         (filters.name === "" || String(item["Name"]).toLowerCase().includes(filters.name.toLowerCase())) &&
-        // Relation filter
-        (filters.relation === "" || item["Relation Type"] === filters.relation) &&
+        // Relation filter (with normalization)
+        (filters.relation === "" || normalizeRelationType(item["Relation Type"]) === normalizeRelationType(filters.relation)) &&
         // Relative Name filter (shown only when relation selected)
         (filters.relativeName === "" || String(item["Relative Name"]).toLowerCase().includes(filters.relativeName.toLowerCase())) &&
         // Age range filter
@@ -342,7 +361,7 @@ const SimpleJsonViewer = () => {
             <label>5. Relation:</label>
             <select name="relation" value={filters.relation} onChange={handleFilterChange}>
               <option value="">Select Relation</option>
-              {getUniqueValues("Relation Type").map((val) => (
+              {getUniqueRelationTypes().map((val) => (
                 <option key={val} value={val}>{val}</option>
               ))}
             </select>
@@ -468,8 +487,8 @@ const SimpleJsonViewer = () => {
                 onClick={() => handleRowClick(item, idx)} 
                 className={`clickable-row `}
               >
-                <td>{item["S.No"]}</td>
-                <td className="electoral-id" onClick={(e) => {e.stopPropagation(); handleElectoralIdClick(item["ID Code"]);}}>
+                <td>{parseInt(item["S.No"]) - 1}</td>
+                <td className="electoral-id">
                   {item["ID Code"]}
                 </td>
                 <td className="name-cell">{item["Name"]}</td>
