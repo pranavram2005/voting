@@ -1,5 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import data from './output_with_roof.jsx';
+import vote_AC002284 from "./voting/AC002284_with_roof";
+import vote_AC005242 from "./voting/AC005242_with_roof";
+import vote_AC005243 from "./voting/AC005243_with_roof";
+import vote_AC005244 from "./voting/AC005244_with_roof";
+import vote_AC005245 from "./voting/AC005245_with_roof";
+import vote_AC005246 from "./voting/AC005246_with_roof";
+import vote_AC005247 from "./voting/AC005247_with_roof";
+import vote_AC005248 from "./voting/AC005248_with_roof";
+import vote_AC005249 from "./voting/AC005249_with_roof";
+import vote_AC005250 from "./voting/AC005250_with_roof";
+import vote_AC005251 from "./voting/AC005251_with_roof";
+import vote_AC005252 from "./voting/AC005252_with_roof";
+import vote_AC005253 from "./voting/AC005253_with_roof";
+import vote_AC005254 from "./voting/AC005254_with_roof";
+import vote_AC005255 from "./voting/AC005255_with_roof";
+import vote_AC005256 from "./voting/AC005256_with_roof";
+import vote_AC005257 from "./voting/AC005257_with_roof";
+import vote_AC005258 from "./voting/AC005258_with_roof";
+import vote_AC005259 from "./voting/AC005259_with_roof";
+import vote_AC005260 from "./voting/AC005260_with_roof";
+
+// Combine all voting data into one array
+const allVoteData = [
+  ...data,
+  ...vote_AC002284,
+  ...vote_AC005242,
+  ...vote_AC005243,
+  ...vote_AC005244,
+  ...vote_AC005245,
+  ...vote_AC005246,
+  ...vote_AC005247,
+  ...vote_AC005248,
+  ...vote_AC005249,
+  ...vote_AC005250,
+  ...vote_AC005251,
+  ...vote_AC005252,
+  ...vote_AC005253,
+  ...vote_AC005254,
+  ...vote_AC005255,
+  ...vote_AC005256,
+  ...vote_AC005257,
+  ...vote_AC005258,
+  ...vote_AC005259,
+  ...vote_AC005260,
+];
 
 const Dashboard = ({ user }) => {
   const [stats, setStats] = useState({
@@ -44,7 +89,7 @@ const Dashboard = ({ user }) => {
       '51-70+': 0
     };
 
-    data.forEach(voter => {
+    allVoteData.forEach(voter => {
       // Count unique locations
       if (voter.Constituency) constituencies.add(voter.Constituency);
       if (voter.Ward) wards.add(voter.Ward);
@@ -67,7 +112,7 @@ const Dashboard = ({ user }) => {
     });
 
     setStats({
-      totalVoters: data.length,
+      totalVoters: allVoteData.length,
       constituencies: constituencies.size,
       wards: wards.size,
       taluks: taluks.size,

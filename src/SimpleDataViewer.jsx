@@ -1,6 +1,51 @@
 import React, { useState, useEffect, useMemo } from "react";
 import vote from "./output_with_roof";
+import vote_AC002284 from "./voting/AC002284_with_roof";
+import vote_AC005242 from "./voting/AC005242_with_roof";
+import vote_AC005243 from "./voting/AC005243_with_roof";
+import vote_AC005244 from "./voting/AC005244_with_roof";
+import vote_AC005245 from "./voting/AC005245_with_roof";
+import vote_AC005246 from "./voting/AC005246_with_roof";
+import vote_AC005247 from "./voting/AC005247_with_roof";
+import vote_AC005248 from "./voting/AC005248_with_roof";
+import vote_AC005249 from "./voting/AC005249_with_roof";
+import vote_AC005250 from "./voting/AC005250_with_roof";
+import vote_AC005251 from "./voting/AC005251_with_roof";
+import vote_AC005252 from "./voting/AC005252_with_roof";
+import vote_AC005253 from "./voting/AC005253_with_roof";
+import vote_AC005254 from "./voting/AC005254_with_roof";
+import vote_AC005255 from "./voting/AC005255_with_roof";
+import vote_AC005256 from "./voting/AC005256_with_roof";
+import vote_AC005257 from "./voting/AC005257_with_roof";
+import vote_AC005258 from "./voting/AC005258_with_roof";
+import vote_AC005259 from "./voting/AC005259_with_roof";
+import vote_AC005260 from "./voting/AC005260_with_roof";
 import "./styles.css";
+
+// Combine all voting data into one array
+const allVoteData = [
+  ...vote,
+  ...vote_AC002284,
+  ...vote_AC005242,
+  ...vote_AC005243,
+  ...vote_AC005244,
+  ...vote_AC005245,
+  ...vote_AC005246,
+  ...vote_AC005247,
+  ...vote_AC005248,
+  ...vote_AC005249,
+  ...vote_AC005250,
+  ...vote_AC005251,
+  ...vote_AC005252,
+  ...vote_AC005253,
+  ...vote_AC005254,
+  ...vote_AC005255,
+  ...vote_AC005256,
+  ...vote_AC005257,
+  ...vote_AC005258,
+  ...vote_AC005259,
+  ...vote_AC005260,
+];
 
 const SimpleJsonViewer = () => {
   const [data, setData] = useState([]);
@@ -9,6 +54,11 @@ const SimpleJsonViewer = () => {
   const [showDetailView, setShowDetailView] = useState(false);
   const [showRoofMembers, setShowRoofMembers] = useState(false);
   const [roofMembers, setRoofMembers] = useState([]);
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(100);
+  
   const [filters, setFilters] = useState({
     constituency: "",
     villages: [], // Nagar
@@ -34,10 +84,10 @@ const SimpleJsonViewer = () => {
   });
 
   useEffect(() => {
-    setData(vote);
+    setData(allVoteData);
     // Initialize suggestions
-    const names = [...new Set(vote.map(item => item.Name))].filter(n => n).sort();
-    const pdfNos = [...new Set(vote.map(item => item.Page))].filter(p => p).sort();
+    const names = [...new Set(allVoteData.map(item => item.Name))].filter(n => n).sort();
+    const pdfNos = [...new Set(allVoteData.map(item => item.Page))].filter(p => p).sort();
     setSuggestions({ names, pdfNos });
   }, []);
 
@@ -87,6 +137,17 @@ const SimpleJsonViewer = () => {
     return normalized;
   };
 
+  const normalizeGender = (gender) => {
+    if (!gender) return "ஆண்";
+    const g = gender.trim().toLowerCase();
+    // Female variations
+    if (g.includes("பெண்") || g.includes("female") || g.includes("f") || g.includes("woman") || g.includes("பெ")) {
+      return "பெண்";
+    }
+    // Default to Male for all other cases
+    return "ஆண்";
+  };
+
   const getUniqueValues = (key) => {
     const values = [...new Set(data.map((item) => item[key]))];
     return values.filter((v) => v !== undefined && v !== null && v !== "").sort();
@@ -125,8 +186,8 @@ const SimpleJsonViewer = () => {
         // Age range filter
         (filters.ageFrom === "" || Number(item["Age"]) >= Number(filters.ageFrom)) &&
         (filters.ageTo === "" || Number(item["Age"]) <= Number(filters.ageTo)) &&
-        // Gender filter
-        (filters.gender === "" || item["Gender"] === filters.gender) &&
+        // Gender filter (with normalization)
+        (filters.gender === "" || normalizeGender(item["Gender"]) === filters.gender) &&
         // PDF No filter exact match (Page)
         (filters.pdfNo === "" || String(item["Page"]).toLowerCase() === filters.pdfNo.toLowerCase()) &&
         // One Roof filter (exact match)
@@ -136,6 +197,28 @@ const SimpleJsonViewer = () => {
       );
     });
   }, [data, filters]);
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedData = filteredData.slice(startIndex, endIndex);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters]);
+
+  const goToPage = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  const handleItemsPerPageChange = (e) => {
+    setItemsPerPage(Number(e.target.value));
+    setCurrentPage(1);
+  };
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -406,9 +489,8 @@ const SimpleJsonViewer = () => {
             <label>7. Gender:</label>
             <select name="gender" value={filters.gender} onChange={handleFilterChange}>
               <option value="">Select Gender</option>
-              {getUniqueValues("Gender").map((val) => (
-                <option key={val} value={val}>{val}</option>
-              ))}
+              <option value="ஆண்">ஆண் (Male)</option>
+              <option value="பெண்">பெண் (Female)</option>
             </select>
           </div>
 
@@ -481,10 +563,10 @@ const SimpleJsonViewer = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((item, idx) => (
+            {paginatedData.map((item, idx) => (
               <tr 
                 key={idx} 
-                onClick={() => handleRowClick(item, idx)} 
+                onClick={() => handleRowClick(item, startIndex + idx)} 
                 className={`clickable-row `}
               >
                 <td>{parseInt(item["S.No"]) - 1}</td>
@@ -495,7 +577,7 @@ const SimpleJsonViewer = () => {
                 <td className="name-cell">{item["Relation Type"]}</td>
                 <td className="name-cell">{item["Relative Name"]}</td>
                   <td>{item["Age"]}</td>
-                <td>{item["Gender"] === "ஆண்" ? "M" : "F"}</td>
+                <td>{normalizeGender(item["Gender"]) === "ஆண்" ? "M" : "F"}</td>
                 <td className="address-cell">
                   {/* Display order: constituency → street → village → booth → ward → door no */}
                   {item["Division"]} → {item["Village"]} → {item["Ward"]} → {item["House No"]}
@@ -511,8 +593,115 @@ const SimpleJsonViewer = () => {
         </table>
       </div>
 
+      {/* Pagination Controls */}
+      <div className="pagination-container" style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '15px 20px',
+        backgroundColor: '#f8f9fa',
+        borderRadius: '8px',
+        margin: '10px 0',
+        flexWrap: 'wrap',
+        gap: '10px'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <span>Show:</span>
+          <select 
+            value={itemsPerPage} 
+            onChange={handleItemsPerPageChange}
+            style={{ padding: '5px 10px', borderRadius: '4px', border: '1px solid #ccc' }}
+          >
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+            <option value={200}>200</option>
+            <option value={500}>500</option>
+            <option value={1000}>1000</option>
+          </select>
+          <span>per page</span>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+          <button 
+            onClick={() => goToPage(1)} 
+            disabled={currentPage === 1}
+            style={{
+              padding: '8px 12px',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              backgroundColor: currentPage === 1 ? '#e9ecef' : '#fff',
+              cursor: currentPage === 1 ? 'not-allowed' : 'pointer'
+            }}
+          >
+            ⏮ First
+          </button>
+          <button 
+            onClick={() => goToPage(currentPage - 1)} 
+            disabled={currentPage === 1}
+            style={{
+              padding: '8px 12px',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              backgroundColor: currentPage === 1 ? '#e9ecef' : '#fff',
+              cursor: currentPage === 1 ? 'not-allowed' : 'pointer'
+            }}
+          >
+            ◀ Prev
+          </button>
+          
+          <span style={{ padding: '0 15px', fontWeight: 'bold' }}>
+            Page {currentPage} of {totalPages}
+          </span>
+          
+          <button 
+            onClick={() => goToPage(currentPage + 1)} 
+            disabled={currentPage === totalPages}
+            style={{
+              padding: '8px 12px',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              backgroundColor: currentPage === totalPages ? '#e9ecef' : '#fff',
+              cursor: currentPage === totalPages ? 'not-allowed' : 'pointer'
+            }}
+          >
+            Next ▶
+          </button>
+          <button 
+            onClick={() => goToPage(totalPages)} 
+            disabled={currentPage === totalPages}
+            style={{
+              padding: '8px 12px',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              backgroundColor: currentPage === totalPages ? '#e9ecef' : '#fff',
+              cursor: currentPage === totalPages ? 'not-allowed' : 'pointer'
+            }}
+          >
+            Last ⏭
+          </button>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+          <span>Go to:</span>
+          <input 
+            type="number" 
+            min="1" 
+            max={totalPages}
+            value={currentPage}
+            onChange={(e) => goToPage(Number(e.target.value))}
+            style={{ 
+              width: '60px', 
+              padding: '5px', 
+              borderRadius: '4px', 
+              border: '1px solid #ccc',
+              textAlign: 'center'
+            }}
+          />
+        </div>
+      </div>
+
       <p className="entry-count">
-        Showing <b>{filteredData.length}</b> of <b>{data.length}</b> entries
+        Showing <b>{startIndex + 1}-{Math.min(endIndex, filteredData.length)}</b> of <b>{filteredData.length}</b> filtered entries (Total: {data.length})
         {data.length > 0 && (
           <span style={{marginLeft: '20px', fontSize: '14px', color: '#888'}}>
             Columns: {8}
@@ -595,7 +784,7 @@ const SimpleJsonViewer = () => {
     {/* 8️⃣ Gender */}
     <div className="grid-label">Gender</div>
     <div className="grid-value">
-      {selectedVoter["Gender"] === "ஆண்" ? "Male (ஆண்)" : "Female (பெண்)"}
+      {normalizeGender(selectedVoter["Gender"]) === "ஆண்" ? "Male (ஆண்)" : "Female (பெண்)"}
     </div>
   </div>
 
@@ -653,7 +842,7 @@ const SimpleJsonViewer = () => {
                     <div>{member["Name"]}</div>
                     <div>{member["Relation Type"]}</div>
                     <div>{member["Age"]}</div>
-                    <div>{member["Gender"] === "ஆண்" ? "Male" : "Female"}</div>
+                    <div>{normalizeGender(member["Gender"]) === "ஆண்" ? "Male" : "Female"}</div>
                     <div>
                       <button 
                         className="view-details-btn" 

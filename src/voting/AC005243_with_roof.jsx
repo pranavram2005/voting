@@ -1,4 +1,4 @@
-[
+const vote = [
   {
     "S.No": 2,
     "One Roof": 33.0,
@@ -2851,26 +2851,6 @@
     "Age": 24.0,
     "Gender": "ஆண்",
     "ID Code": "UVQ2190510",
-    "Photo": "Unavailable",
-    "Page": 8,
-    "Constituency": "5-பூந்தமல்லி",
-    "Division": "1-சென்னீர் குப்பம் (ஊ)",
-    "Village": "பெரியார் நகர் மெயின் ரோடு",
-    "Ward": "வார்டு-1",
-    "Part": 243.0
-  },
-  {
-    "S.No": 145,
-    "One Roof": 1.0,
-    "One Roof Running Number": 62.0,
-    "Position": "R8C3",
-    "Name": "லெட்சுமி",
-    "Relation Type": "கணவர் பெயர்",
-    "Relative Name": "மன்னராவ்",
-    "House No": "11-142",
-    "Age": 51.0,
-    "Gender": "பெண்",
-    "ID Code": "NOT_FOUND",
     "Photo": "Unavailable",
     "Page": 8,
     "Constituency": "5-பூந்தமல்லி",
@@ -10560,26 +10540,6 @@
     "Part": 243.0
   },
   {
-    "S.No": 530,
-    "One Roof": 1.0,
-    "One Roof Running Number": 200.0,
-    "Position": "R9C1",
-    "Name": NaN,
-    "Relation Type": NaN,
-    "Relative Name": NaN,
-    "House No": "11/172",
-    "Age": 23.0,
-    "Gender": "பெண்",
-    "ID Code": "NZM5349782",
-    "Photo": "Unavailable",
-    "Page": 21,
-    "Constituency": "5-பூந்தமல்லி",
-    "Division": "2-சென்னீர் குப்பம் (ஊ)",
-    "Village": "ஆவடி ரோடு",
-    "Ward": "வார்டு-2",
-    "Part": 243.0
-  },
-  {
     "S.No": 531,
     "One Roof": 1.0,
     "One Roof Running Number": 201.0,
@@ -15359,4 +15319,6 @@
     "Ward": "வார்டு-1",
     "Part": 243.0
   }
-]
+];
+
+export default vote;

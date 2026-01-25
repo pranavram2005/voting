@@ -1,4 +1,24 @@
-const vote = [
+[
+  {
+    "S.No": 1,
+    "One Roof": 1.0,
+    "One Roof Running Number": 1.0,
+    "Position": "R9C3",
+    "Name": NaN,
+    "Relation Type": NaN,
+    "Relative Name": NaN,
+    "House No": "ணிக்கை",
+    "Age": NaN,
+    "Gender": NaN,
+    "ID Code": "NOT_FOUND",
+    "Photo": NaN,
+    "Page": 1,
+    "Constituency": NaN,
+    "Division": NaN,
+    "Village": NaN,
+    "Ward": NaN,
+    "Part": NaN
+  },
   {
     "S.No": 2,
     "One Roof": 33.0,
@@ -2860,6 +2880,26 @@ const vote = [
     "Part": 243.0
   },
   {
+    "S.No": 145,
+    "One Roof": 1.0,
+    "One Roof Running Number": 62.0,
+    "Position": "R8C3",
+    "Name": "லெட்சுமி",
+    "Relation Type": "கணவர் பெயர்",
+    "Relative Name": "மன்னராவ்",
+    "House No": "11-142",
+    "Age": 51.0,
+    "Gender": "பெண்",
+    "ID Code": "NOT_FOUND",
+    "Photo": "Unavailable",
+    "Page": 8,
+    "Constituency": "5-பூந்தமல்லி",
+    "Division": "1-சென்னீர் குப்பம் (ஊ)",
+    "Village": "பெரியார் நகர் மெயின் ரோடு",
+    "Ward": "வார்டு-1",
+    "Part": 243.0
+  },
+  {
     "S.No": 146,
     "One Roof": 1.0,
     "One Roof Running Number": 63.0,
@@ -3781,13 +3821,13 @@ const vote = [
   },
   {
     "S.No": 192,
-    "One Roof": null,
-    "One Roof Running Number": null,
+    "One Roof": NaN,
+    "One Roof Running Number": NaN,
     "Position": "R4C2",
     "Name": "சந்திரசேகரன்",
     "Relation Type": "தந்தையின் பெயர்",
     "Relative Name": "கன்னியப்பன்",
-    "House No": null,
+    "House No": NaN,
     "Age": 81.0,
     "Gender": "ஆண்",
     "ID Code": "UVQ0760223",
@@ -8781,13 +8821,13 @@ const vote = [
   },
   {
     "S.No": 442,
-    "One Roof": null,
-    "One Roof Running Number": null,
+    "One Roof": NaN,
+    "One Roof Running Number": NaN,
     "Position": "R9C3",
     "Name": "சல்கா பானு",
     "Relation Type": "கணவர் பெயர்",
     "Relative Name": "அகமது ரபீக்",
-    "House No": null,
+    "House No": NaN,
     "Age": 50.0,
     "Gender": "பெண்",
     "ID Code": "UVQ1728179",
@@ -10531,6 +10571,26 @@ const vote = [
     "Age": 28.0,
     "Gender": "பெண்",
     "ID Code": "UVQ3401288",
+    "Photo": "Unavailable",
+    "Page": 21,
+    "Constituency": "5-பூந்தமல்லி",
+    "Division": "2-சென்னீர் குப்பம் (ஊ)",
+    "Village": "ஆவடி ரோடு",
+    "Ward": "வார்டு-2",
+    "Part": 243.0
+  },
+  {
+    "S.No": 530,
+    "One Roof": 1.0,
+    "One Roof Running Number": 200.0,
+    "Position": "R9C1",
+    "Name": NaN,
+    "Relation Type": NaN,
+    "Relative Name": NaN,
+    "House No": "11/172",
+    "Age": 23.0,
+    "Gender": "பெண்",
+    "ID Code": "NZM5349782",
     "Photo": "Unavailable",
     "Page": 21,
     "Constituency": "5-பூந்தமல்லி",
@@ -15319,6 +15379,4 @@ const vote = [
     "Ward": "வார்டு-1",
     "Part": 243.0
   }
-];
-
-export default vote;
+]
