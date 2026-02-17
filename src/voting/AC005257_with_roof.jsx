@@ -7200,9 +7200,29 @@ const vote = [
     "Part": 257.0
   },
   {
+  "S.No": 362,
+  "One Roof": 1.0,
+  "One Roof Running Number": 129.0,
+  "Position": "R8C3",
+  "Name": "விமல்",
+  "Relation Type": "தந்தையின் பெயர்",
+  "Relative Name": "குமார்",
+  "House No": "எண் 56",
+  "Age": 29.0,
+  "Gender": "ஆண்",
+  "ID Code": "YSS1068998",
+  "Photo": "Available",
+  "Page": 18,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "6-சென்னீர்குப்பம் (ஊ)",
+  "Village": "பாரதி தெரு அபிராமி நகர்",
+  "Ward": "ஊ, பாரதி தெரு அபிராமி நகர்",
+  "Part": 257.0
+  },
+  {
     "S.No": 363,
     "One Roof": 1.0,
-    "One Roof Running Number": 129.0,
+    "One Roof Running Number": 132.0,
     "Position": "R9C1",
     "Name": "கீர்த்திகா மு",
     "Relation Type": "தந்தையின் பெயர்",
@@ -19698,6 +19718,27 @@ const vote = [
     "Village": "செல்வ வினாயகர் நகர்",
     "Ward": "வார்டு 4",
     "Part": 257.0
+  },
+
+  {
+  "S.No": 988,
+  "One Roof": 1.0,
+  "One Roof Running Number": 335.0,
+  "Position": "R6C3",
+  "Name": "ராம் மோகன் ம",
+  "Relation Type": "தந்தையின் பெயர்",
+  "Relative Name": "கோவிந்தபிள்ளை",
+  "House No": "மனை எண் 94 எ-பிளாக் ஸ3",
+  "Age": 83.0,
+  "Gender": "ஆண்",
+  "ID Code": "MSS1384601",
+  "Photo": "Available",
+  "Page": 42,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "10-சென்னீர்குப்பம் (ஊ )",
+  "Village": "செல்வ வினாயகர் நகர்",
+  "Ward": "வார்டு 4",
+  "Part": 257.0
   },
   {
     "S.No": 989,

@@ -7560,6 +7560,26 @@ const vote = [
     "Part": 248.0
   },
   {
+  "S.No": 380,
+  "One Roof": 1,
+  "One Roof Running Number": 130,
+  "Position": "R7C1",
+  "Name": "நிவேதா",
+  "Relation Type": "தந்தையின் பெயர்",
+  "Relative Name": "ரவி",
+  "House No": "6/165",
+  "Age": 23.0,
+  "Gender": "பெண்",
+  "ID Code": "UVQ3106440",
+  "Photo": "Unavailable",
+  "Page": 16,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "1-சென்னீர்குப்பம் (ஊ)",
+  "Village": "ஆவடி ரோடு",
+  "Ward": "வார்டு2",
+  "Part": 248.0
+},
+  {
     "S.No": 381,
     "One Roof": 1.0,
     "One Roof Running Number": 131.0,

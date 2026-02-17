@@ -739,6 +739,26 @@ const vote = [
     "Ward": "ஊ, ஸ்ரீதேவி நகர்",
     "Part": 258.0
   },
+{
+  "S.No": 39,
+  "One Roof": 5,
+  "One Roof Running Number": 1,
+  "Position": "R3C2",
+  "Name": "சத்திய ஷீலா",
+  "Relation Type": "கணவர் பெயர்",
+  "Relative Name": "இளங்கோவன்",
+  "House No": "9-62",
+  "Age": 38.0,
+  "Gender": "பெண்",
+  "ID Code": "UVQ1441880",
+  "Photo": "Available",
+  "Page": 5,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "1-சென்னீர்குப்பம் (ஊ)",
+  "Village": "ஸ்ரீதேவி நகர்",
+  "Ward": "ஊ, ஸ்ரீதேவி நகர்",
+  "Part": 258.0
+  },
   {
     "S.No": 40,
     "One Roof": 5,
@@ -10618,6 +10638,26 @@ const vote = [
     "Village": "மகிழம் அவின்யூ",
     "Ward": "ஊ, மகிழம் அவின்யூ",
     "Part": 258.0
+  },
+  {
+  "S.No": 534,
+  "One Roof": 1,
+  "One Roof Running Number": 119,
+  "Position": "R7C2",
+  "Name": "ராஜாத்தி ஜீ",
+  "Relation Type": "கணவர் பெயர்",
+  "Relative Name": "குணசேகரன்",
+  "House No": "எஃப் 1, முதல் தளம்",
+  "Age": 64.0,
+  "Gender": "பெண்",
+  "ID Code": "YPE1662022",
+  "Photo": "Available",
+  "Page": 22,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "3-சென்னீர்குப்பம் (ஊ)",
+  "Village": "மகிழம் அவின்யூ",
+  "Ward": "ஊ, மகிழம் அவின்யூ",
+  "Part": 258.0
   },
   {
     "S.No": 535,

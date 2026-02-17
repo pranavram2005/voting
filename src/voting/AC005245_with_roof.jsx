@@ -21360,6 +21360,26 @@ const vote = [
     "Part": 245.0
   },
   {
+  "S.No": 1070,
+  "One Roof": 1,
+  "One Roof Running Number": 149,
+  "Position": "R7C1",
+  "Name": "முத்துகாமி",
+  "Relation Type": "தந்தையின் பெயர்",
+  "Relative Name": "சக்கரையா பூசலா",
+  "House No": "771-2",
+  "Age": 50.0,
+  "Gender": "ஆண்",
+  "ID Code": "UVQ0216598",
+  "Photo": "Available",
+  "Page": 39,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "1-சென்னீர்குப்பம் (ஊ)",
+  "Village": "ஏரிக்கரை செல்வகணபதி நகர்",
+  "Ward": "வார்டு 4",
+  "Part": 245.0
+},
+  {
     "S.No": 1071,
     "One Roof": 2,
     "One Roof Running Number": 148,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import vote from "./output_with_roof";
+import vote_AC002283 from "./voting/AC002283_with_roof";
 import vote_AC002284 from "./voting/AC002284_with_roof";
 import vote_AC005242 from "./voting/AC005242_with_roof";
 import vote_AC005243 from "./voting/AC005243_with_roof";
@@ -24,7 +24,7 @@ import "./styles.css";
 
 // Combine all voting data into one array
 const allVoteData = [
-  ...vote,
+  ...vote_AC002283,
   ...vote_AC002284,
   ...vote_AC005242,
   ...vote_AC005243,

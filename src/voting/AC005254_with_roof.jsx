@@ -339,7 +339,8 @@ const vote = [
     "Ward": "வார்டு-4",
     "Part": 254.0
   },
-  {
+ 
+ {
     "S.No": 19,
     "One Roof": 9.0,
     "One Roof Running Number": 1.0,
@@ -359,6 +360,26 @@ const vote = [
     "Ward": "வார்டு-4",
     "Part": 254.0
   },
+   {
+  "S.No": 20,
+  "One Roof": 9.0,
+  "One Roof Running Number": 1.0,
+  "Position": "R7C1",
+  "Name": "கலாவதி",
+  "Relation Type": "தந்தையின் பெயர்",
+  "Relative Name": "வெங்கடேசன்",
+  "House No": "2",
+  "Age": 72.0,
+  "Gender": "பெண்",
+  "ID Code": "UVQ1827930",
+  "Photo": "Available",
+  "Page": 4,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "1-சென்னீர்குப்பம்(ஊ)",
+  "Village": "வி ஜீ என் நகர்",
+  "Ward": "வார்டு-4",
+  "Part": 254.0
+ },
   {
     "S.No": 21,
     "One Roof": 9.0,
@@ -15198,6 +15219,27 @@ const vote = [
     "Village": "வி ஜீ என் நகர்",
     "Ward": "வார்டு-4",
     "Part": 254.0
+  },
+
+  {
+  "S.No": 763,
+  "One Roof": 2.0,
+  "One Roof Running Number": 59.0,
+  "Position": "R4C3",
+  "Name": "கோல்டா மேரி",
+  "Relation Type": "கணவர் பெயர்",
+  "Relative Name": "ஜெயக்குமார் ",
+  "House No": "எண் 28 புதிய எண் 12/92",
+  "Age": 49.0,
+  "Gender": "பெண்",
+  "ID Code": "XBG1161454",
+  "Photo": "Available",
+  "Page": 29,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "1-சென்னீர்குப்பம்(ஊ)",
+  "Village": "வி ஜீ என் நகர்",
+  "Ward": "வார்டு-4",
+  "Part": 254.0
   },
   {
     "S.No": 764,

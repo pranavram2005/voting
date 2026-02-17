@@ -1699,6 +1699,27 @@ const vote = [
     "Ward": "வார்டு-5",
     "Part": 256.0
   },
+  
+  {
+  "S.No": 87,
+  "One Roof": 2,
+  "One Roof Running Number": 9,
+  "Position": "R9C2",
+  "Name": "லாசர்",
+  "Relation Type": "தந்தையின் பெயர்",
+  "Relative Name": "கஜேந்திரன்",
+  "House No": "5-232",
+  "Age": 37.0,
+  "Gender": "ஆண்",
+  "ID Code": "UVQ1441658",
+  "Photo": "Available",
+  "Page": 6,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "1-சென்னீர்குப்பம்(ஊ)",
+  "Village": "டி ஆர் ஆர் நகர்",
+  "Ward": "வார்டு-5",
+  "Part": 256.0
+ },
   {
     "S.No": 88,
     "One Roof": 1,

@@ -5760,6 +5760,26 @@ const vote = [
     "Part": 249.0
   },
   {
+  "S.No": 290,
+  "One Roof": 2,
+  "One Roof Running Number": 53,
+  "Position": "R7C1",
+  "Name": "ஆரியமாலா",
+  "Relation Type": "கணவர் பெயர்",
+  "Relative Name": "மகாதேவன்",
+  "House No": "271",
+  "Age": 73.0,
+  "Gender": "பெண்",
+  "ID Code": "CPK1614940",
+  "Photo": "Available",
+  "Page": 13,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "1-சென்னீர் குப்பம் (ஊ)",
+  "Village": "ஏரிக்கரை தெரு",
+  "Ward": "வார்டு-2",
+  "Part": 249.0
+},
+  {
     "S.No": 291,
     "One Roof": 2,
     "One Roof Running Number": 53,

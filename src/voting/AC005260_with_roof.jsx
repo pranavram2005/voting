@@ -6600,6 +6600,26 @@ const vote = [
     "Part": 260.0
   },
   {
+  "S.No": 332,
+  "One Roof": 5.0,
+  "One Roof Running Number": 8.0,
+  "Position": "R3C1",
+  "Name": "சிவபர்ரதம்",
+  "Relation Type": "தந்தையின் பெயர்",
+  "Relative Name": "சுப்பிரமணி",
+  "House No": "3-68",
+  "Age": 72.0,
+  "Gender": "ஆண்",
+  "ID Code": "UVQ1014604",
+  "Photo": "Available",
+  "Page": 15,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "2-சென்னீர் குப்பம் (ஊ)",
+  "Village": "வாணியர் தெரு",
+  "Ward": "வார்டு-3",
+  "Part": 260.0
+  },
+  {
     "S.No": 333,
     "One Roof": 2.0,
     "One Roof Running Number": 21.0,
@@ -9518,6 +9538,26 @@ const vote = [
     "Village": "வாணியர் தெரு",
     "Ward": "வார்டு-3",
     "Part": 260.0
+  },
+  {
+  "S.No": 479,
+  "One Roof": 1.0,
+  "One Roof Running Number": 105.0,
+  "Position": "R2C1",
+  "Name": "ம் ஸாதிக் பாஷ மஹபூப் பாஷா",
+  "Relation Type": "இதரர் பெயர்",
+  "Relative Name": "ரிஸ்வான பஷீர் முஹம்மத்",
+  "House No": "பது எண் 7/90",
+  "Age": null,
+  "Gender": null,
+  "ID Code": "UVQ3429214",
+  "Photo": "Available",
+  "Page": 20,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "2-சென்னீர் குப்பம் (ஊ)",
+  "Village": "வாணியர் தெரு",
+  "Ward": "வார்டு-3",
+  "Part": 260.0
   },
   {
     "S.No": 480,
@@ -16900,6 +16940,26 @@ const vote = [
     "Part": 260.0
   },
   {
+  "S.No": 849,
+  "One Roof": 10.0,
+  "One Roof Running Number": 2.0,
+  "Position": "R6C3",
+  "Name": "பொட்டுக்ன்னு",
+  "Relation Type": "தந்தையின் பெயர்",
+  "Relative Name": "முருகேசன்",
+  "House No": "60",
+  "Age": 77.0,
+  "Gender": "பெண்",
+  "ID Code": "UVQ1014430",
+  "Photo": "Available",
+  "Page": 34,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "6-சென்னீர் குப்பம் (ஊ)",
+  "Village": "சக்திகார்டன் மெயின் ரோடு",
+  "Ward": "வார்டு-2",
+  "Part": 260.0
+  },
+  {
     "S.No": 850,
     "One Roof": 10.0,
     "One Roof Running Number": 2.0,
@@ -19639,6 +19699,27 @@ const vote = [
     "Ward": "ஊ, மாரியம்மன் கோயில் தெரு பள்ளிகுப்பம்",
     "Part": 260.0
   },
+
+  {
+  "S.No": 987,
+  "One Roof": 2.0,
+  "One Roof Running Number": 73.0,
+  "Position": "R5C3",
+  "Name": "பாலாஜி",
+  "Relation Type": "தந்தையின் பெயர்",
+  "Relative Name": "குப்புசாமி",
+  "House No": "2-A",
+  "Age": 42.0,
+  "Gender": "ஆண்",
+  "ID Code": "UVQ1014455",
+  "Photo": "Available",
+  "Page": 39,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "7-சென்னீர் குப்பம் (ஊ)",
+  "Village": "மாரியம்மன் கோயில் தெரு பள்ளிகுப்பம்",
+  "Ward": "ஊ, மாரியம்மன் கோயில் தெரு பள்ளிகுப்பம்",
+  "Part": 260.0
+},
   {
     "S.No": 988,
     "One Roof": 4.0,

@@ -8922,7 +8922,7 @@ const vote = [
   {
     "S.No": 448,
     "One Roof": 2,
-    "One Roof Running Number": 52,
+    "One Roof Running Number": 53,
     "Position": "R10C2",
     "Name": "நாகேஸ்வரி",
     "Relation Type": "கணவர் பெயர்",
@@ -8938,6 +8938,26 @@ const vote = [
     "Village": "வ.உ.சி. தெரு",
     "Ward": "வார்டு-4",
     "Part": 253.0
+  },
+  {
+  "S.No": 449,
+  "One Roof": 2,
+  "One Roof Running Number": 53,
+  "Position": "R10C3",
+  "Name": "மனோஜ்",
+  "Relation Type": "தந்தையின் பெயர்",
+  "Relative Name": "மனோகரன்",
+  "House No": "9-159",
+  "Age": 42.0,
+  "Gender": "ஆண்",
+  "ID Code": "UVQ1553460",
+  "Photo": "Available",
+  "Page": 19,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "3-சென்னீர்குப்பம்(ஊ)",
+  "Village": "வ.உ.சி. தெரு",
+  "Ward": "வார்டு-4",
+  "Part": 253.0
   },
   {
     "S.No": 450,

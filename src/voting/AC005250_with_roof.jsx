@@ -9620,6 +9620,26 @@ const vote = [
     "Part": 250.0
   },
   {
+  "S.No": 483,
+  "One Roof": 1,
+  "One Roof Running Number": 195,
+  "Position": "R4C3",
+  "Name": "வீரபாபு",
+  "Relation Type": "தந்தையின் பெயர்",
+  "Relative Name": "முத்துராமன்",
+  "House No": "1/4",
+  "Age": 25.0,
+  "Gender": "ஆண்",
+  "ID Code": "UVQ2191401",
+  "Photo": "Available",
+  "Page": 20,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "3-சென்னீர் குப்பம் (ஊ)",
+  "Village": "குமரன் நகர் 2வது தெரு",
+  "Ward": "வார்டு-2",
+  "Part": 250.0
+},
+  {
     "S.No": 484,
     "One Roof": 1,
     "One Roof Running Number": 195,
@@ -14679,6 +14699,26 @@ const vote = [
     "Ward": "வார்டு-2",
     "Part": 250.0
   },
+  {
+  "S.No": 737,
+  "One Roof": 1,
+  "One Roof Running Number": 279,
+  "Position": "R9C2",
+  "Name": "மலர்",
+  "Relation Type": "கணவர் பெயர்",
+  "Relative Name": "சேகர்",
+  "House No": "1055",
+  "Age": 36.0,
+  "Gender": "பெண்",
+  "ID Code": "UVQ1010651",
+  "Photo": "Available",
+  "Page": 28,
+  "Constituency": "5-பூந்தமல்லி",
+  "Division": "3-சென்னீர் குப்பம் (ஊ)",
+  "Village": "குமரன் நகர் 2வது தெரு",
+  "Ward": "வார்டு-2",
+  "Part": 250.0
+},
   {
     "S.No": 738,
     "One Roof": 3,
